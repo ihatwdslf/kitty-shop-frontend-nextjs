@@ -1,1 +1,75 @@
 @import "tailwindcss";
+
+@layer components {
+
+    :root {
+        --color-accent: #FF9F9C;
+    }
+
+    .container {
+        @apply p-[15px] mx-auto
+    }
+
+    .header_top__icon_wrapper {
+        @apply bg-gray-200 rounded-md p-[6px] text-[14px] cursor-pointer hover:bg-rose-400 hover:text-white;
+    }
+
+    .logo__link:hover {
+        color: var(--color-accent);
+        transition: all 0.4s;
+    }
+
+    .logo__link:after {
+        position: absolute;
+        content: "";
+        background-color: var(--color-accent);
+        height: 3px;
+        width: 100%;
+        bottom: -5px;
+        left: 0;
+        scale: 0;
+        transform-origin: left;
+        transition: all 0.4s;
+    }
+
+    .logo__link:hover:after {
+        scale: 1;
+    }
+
+    .navbar__link.active {
+        color: var(--color-accent);
+    }
+
+    .navbar__link.active:after {
+        position: absolute;
+        content: "";
+        background-color: var(--color-accent);
+        height: 3px;
+        width: 100%;
+        bottom: -5px;
+        left: 0;
+        scale: 1;
+    }
+
+    .navbar__link:hover {
+        color: var(--color-accent);
+        transition: all 0.4s;
+    }
+
+    .navbar__link:after {
+        position: absolute;
+        content: "";
+        background-color: var(--color-accent);
+        height: 3px;
+        width: 100%;
+        bottom: -5px;
+        left: 0;
+        scale: 0;
+        transform-origin: left;
+        transition: all 0.4s;
+    }
+
+    .navbar__link:hover:after {
+        scale: 1;
+    }
+}
