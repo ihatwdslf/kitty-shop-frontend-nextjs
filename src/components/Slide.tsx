@@ -21,15 +21,16 @@ const Slide : React.FC<SlidePropsType> = ({ img, title, mainTitle, price }) => {
                     {mainTitle}
                 </h2>
 
-                <h3 className="text-[24px] text-gray-500">
-                    starting at{" "}
-                    <b className="text-[20px] md:text-[24px] lg:text-[30px]">${price}</b>
-                    .00
+                <h3 className="text-[24px]">
+                    від ${price}.00{" "}
+                    <del className="text-red-700 font-normal text-[18px]">
+                        ${price + 5}.00
+                    </del>
                 </h3>
 
                 <div className="bg-rose-400 text-white text-[14px] md:text-[16px] p-2 px-4 rounded-lg
                 inline-block cursor-pointer hover:bg-stone-950">
-                    Shop Now
+                    Придбати зараз
                 </div>
             </div>
 

@@ -20,8 +20,8 @@ const HeaderTop = () => {
                         </div>
                     </div>
 
-                    <div className="text-gray-500 text-[12px]">
-                        <b>FREE SHIPPING</b> THIS WEEK ORDER OVER - $55
+                    <div className="text-gray-500 text-[12px] uppercase">
+                        <b>Безкоштовна доставка</b> на цьому тижні при замовленні від $55
                     </div>
 
                     <div>
@@ -36,12 +36,11 @@ const HeaderTop = () => {
                         </select>
 
                         <select
-                            className="text-gray-500 text-[12px] w-[80px]"
+                            className="text-gray-500 text-[12px] w-[100px]"
                             name="language"
                             id="language"
                         >
-                            <option value="English">English</option>
-                            <option value="Ukrainian">Ukrainian</option>
+                            <option value="Ukrainian">Українська</option>
                         </select>
                     </div>
                 </div>

@@ -8,11 +8,12 @@ export interface NavbarItemType {
 }
 
 export const NavbarSections: NavbarItemType[] = [
-    { title: "Home", link: "/" },
-    { title: "Categories", link: "/categories" },
-    { title: "Mens", link: "/categories?for=men" },
-    { title: "Womens", link: "/women" },
-    { title: "Jewelry", link: "/jewelry" },
-    { title: "Perfume", link: "/perfume" },
-    { title: "Hot Offers", link: "/hot-offers", icon: BsFire },
+    { title: "Головна", link: "/" },
+    { title: "Категорії", link: "/categories" },
+    { title: "Чоловіче", link: "/categories?for=men" },
+    { title: "Жіноче", link: "/women" },
+    { title: "Аксесуари", link: "/accessories" },
+    { title: "Косметика", link: "/cosmetics" },
+    { title: "Парфуми", link: "/perfume" },
+    { title: "Гарячі пропозиції", link: "/hot-offers", icon: BsFire },
 ];

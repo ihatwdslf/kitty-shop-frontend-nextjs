@@ -18,22 +18,22 @@ const Hero = () => {
         {
             id: 0,
             img: "/banner-1.jpg",
-            title: "Trending Item",
-            mainTitle: "WOMEN'S LATEST FASHION SALE",
+            title: "Трендовий товар",
+            mainTitle: "ЖІНОЧИЙ РОЗПРОДАЖ ОСТАННЬОЇ МОДИ",
             price: 20
         },
         {
             id: 1,
             img: "/banner-2.jpg",
-            title: "Trending Accessories",
-            mainTitle: "MODERN SUNGLASSES",
+            title: "Трендові аксесуари",
+            mainTitle: "СУЧАСНІ СОНЯЧНІ ОКУЛЯРИ",
             price: 15
         },
         {
             id: 2,
             img: "/banner-3.jpg",
-            title: "Sale Offer",
-            mainTitle: "NEW FASHION SUMMER SALE",
+            title: "Пропозиція продажу",
+            mainTitle: "ЛІТНІЙ РОЗПРОДАЖ НОВОЇ МОДИ",
             price: 30
         },
     ]
