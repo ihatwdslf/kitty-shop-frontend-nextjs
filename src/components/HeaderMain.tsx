@@ -31,7 +31,7 @@ const HeaderMain = () => {
 
                 <div className="hidden lg:flex gap-4 text-gray-500">
                     {!authorized ? <LoginDialog /> : (
-                        <div className="text-sm">{user.firstName} {user.lastName}</div>
+                        <div className="text-sm">{user?.firstName} {user?.lastName}</div>
                     )}
                     <ShoppingCardButton />
                 </div>

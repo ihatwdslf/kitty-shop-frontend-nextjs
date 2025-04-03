@@ -6,7 +6,8 @@ import Slide from "@/components/Slide";
 const Hero = () => {
 
     const settings = {
-        dots: true,
+        dots: false,
+        arrows: false,
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -40,7 +41,7 @@ const Hero = () => {
 
     return (
         <div>
-            <div className="container pt-6 lg:pt-0">
+            <div className="container">
                 <Slider {...settings}>
                     {slideData.map((item) =>
                         <Slide

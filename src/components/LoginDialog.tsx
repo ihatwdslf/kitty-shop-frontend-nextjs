@@ -15,12 +15,13 @@ import LoginButton from "@/components/LoginButton";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {useAuth} from "@/context/AuthContext";
+import {useLoading} from "@/context/LoadingContext";
 
 export default function LoginDialog() {
 
     const router = useRouter();
 
-    const { loading }: any = useAuth();
+    const { loading } = useLoading();
     const { login, error, user } = useAuth();
 
     const [opened, setOpened] = useState(false);
@@ -42,6 +43,7 @@ export default function LoginDialog() {
                 router.refresh();
             }
         } catch (err) {
+            const error = err as Error;
             console.error(error)
         }
     };

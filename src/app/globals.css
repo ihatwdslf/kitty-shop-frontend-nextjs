@@ -64,11 +64,11 @@
         scale: 1;
     }
 
-    .navbar__link.active {
+    .navigation_accent__link.active {
         color: var(--color-rose-400);
     }
 
-    .navbar__link.active:after {
+    .navigation_accent__link.active:after {
         position: absolute;
         content: "";
         background-color: var(--color-rose-400);
@@ -79,12 +79,12 @@
         scale: 1;
     }
 
-    .navbar__link:hover {
+    .navigation_accent__link:hover {
         color: var(--color-rose-400);
         transition: all 0.4s;
     }
 
-    .navbar__link:after {
+    .navigation_accent__link:after {
         position: absolute;
         content: "";
         background-color: var(--color-rose-400);
@@ -97,7 +97,7 @@
         transition: all 0.4s;
     }
 
-    .navbar__link:hover:after {
+    .navigation_accent__link:hover:after {
         scale: 1;
     }
 }

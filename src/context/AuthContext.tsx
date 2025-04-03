@@ -1,48 +1,56 @@
-﻿"use client"
+﻿"use client";
 
-import {createContext, useContext, useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
-import {apiClient} from "@/data/apiClient";
-import {useLoading} from "@/context/LoadingContext";
-import {User} from "@/data/response/User";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { apiClient } from "@/data/apiClient";
+import { User } from "@/data/response/User";
+import { UserLoginRequestDto } from "@/data/request/auth/UserLoginRequestDto";
+import { useLoading } from "@/context/LoadingContext";
 
-const AuthContext = createContext({
+interface AuthContextType {
+    authorized: boolean;
+    user: User | null;
+    error: string;
+    login: (credentials: UserLoginRequestDto) => Promise<boolean>;
+    logout: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType>({
     authorized: false,
     user: null,
-    error: ""
+    error: "",
+    login: async () => false,
+    logout: async () => {},
 });
 
-// Create a custom hook to access the AuthContext
 export const useAuth = () => {
     return useContext(AuthContext);
 };
 
-// Create an AuthProvider to wrap your app and provide the context
-export const AuthProvider = ({children}) => {
+interface AuthProviderProps {
+    children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const router = useRouter();
 
     const [authorized, setAuthorized] = useState<boolean>(false);
-    const [user, setUser] = useState<User | null>(null); // Store user data
-    const [error, setError] = useState<string>(""); // Handle error state
+    const [user, setUser] = useState<User | null>(null);
+    const [error, setError] = useState<string>("");
 
     const { showLoading, hideLoading } = useLoading();
 
-    // Fetch user data (could be from local storage or an API call)
+    // Fetch user data
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 showLoading();
-                const response = await apiClient.get("/auth/me", {
-                    withCredentials: true,
-                });
+                const response = await apiClient<User>("/auth/me");
 
-                if (response.data?.code === 200) {
-                    setUser(response.data?.data); // Set the user data
-                } else {
-                    setUser(null); // Clear user if not found
-                    hideLoading();
-                }
+                setUser(response); // Set the user data
+                hideLoading();
             } catch (err) {
+                console.error("User data fetching failed", err);
                 setError("User data fetching failed");
                 hideLoading();
             }
@@ -54,43 +62,42 @@ export const AuthProvider = ({children}) => {
     useEffect(() => {
         if (user?.id) {
             setAuthorized(true);
-            hideLoading();
         }
     }, [user]);
 
-    const login = async (credentials): Promise<boolean> => {
+    const login = async (credentials: UserLoginRequestDto): Promise<boolean> => {
         try {
-            const response = await apiClient.post(
-                "/auth/login",
-                credentials,
-                {withCredentials: true}
-            );
+            const response = await apiClient<{ code: number, message: string }>("/auth/login", {
+                method: "POST",
+                body: credentials,
+            });
 
-            if (response.data?.code == 200) {
+            if (response.code === 200) {
                 return true;
             } else {
-                setError(response.data?.message || "Login failed");
+                setError(response.message || "Login failed");
                 return false;
             }
         } catch (err) {
-            setError(err.response?.data?.message || "Login failed");
+            const error = err as Error;
+            setError(error.message || "Login failed");
             return false;
         }
     };
 
     const logout = async () => {
-        setUser(null); // Clear user data on logout
-
-        const response = await apiClient.post(
-            "/auth/logout",
-            { withCredentials: true }
-        );
-
-        router.push("/"); // Redirect to home page
+        try {
+            await apiClient("/auth/logout", { method: "POST" });
+            setUser(null); // Clear user data on logout
+            router.push("/");
+        } catch (err) {
+            console.error("Logout failed", err);
+            setError("Logout failed");
+        }
     };
 
     return (
-        <AuthContext.Provider value={{user, error, login, logout, authorized}}>
+        <AuthContext.Provider value={{ user, error, login, logout, authorized }}>
             {children}
         </AuthContext.Provider>
     );
