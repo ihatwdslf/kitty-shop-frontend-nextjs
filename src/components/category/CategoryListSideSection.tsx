@@ -1,5 +1,5 @@
 ﻿import CategoryListItems from "@/components/category/CategoryListItems";
-import {Category} from "@/data/response/Category";
+import {Category} from "@/data/response/category/Category";
 import React, {useEffect, useState} from "react";
 
 interface CategoryListSectionProps {

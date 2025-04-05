@@ -1,30 +1,30 @@
 ﻿"use client";
 
-import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { createContext, ReactNode, useContext } from "react";
 import { apiClient } from "@/data/apiClient";
-import { User } from "@/data/response/User";
+import { User } from "@/data/response/user/User";
 import { UserLoginRequestDto } from "@/data/request/auth/UserLoginRequestDto";
 import { useLoading } from "@/context/LoadingContext";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {ApiResponse} from "@/data/response/ApiResponse";
+import {UserLoginResponse} from "@/data/response/user/UserLoginResponse";
 
 interface AuthContextType {
     authorized: boolean;
-    user: User | null;
+    user: ApiResponse<User> | null;
     error: string;
     login: (credentials: UserLoginRequestDto) => Promise<boolean>;
     logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType>({
-    authorized: false,
-    user: null,
-    error: "",
-    login: async () => false,
-    logout: async () => {},
-});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
-    return useContext(AuthContext);
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
 };
 
 interface AuthProviderProps {
@@ -32,72 +32,76 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const router = useRouter();
-
-    const [authorized, setAuthorized] = useState<boolean>(false);
-    const [user, setUser] = useState<User | null>(null);
-    const [error, setError] = useState<string>("");
-
+    const queryClient = useQueryClient();
     const { showLoading, hideLoading } = useLoading();
 
-    // Fetch user data
-    useEffect(() => {
-        const fetchUser = async () => {
+    // ✅ Запит на отримання користувача
+    const { data: user, error } = useQuery<ApiResponse<User> | null>({
+        queryKey: ["user"],
+        queryFn: async () => {
+            showLoading();
             try {
-                showLoading();
-                const response = await apiClient<User>("/auth/me");
-
-                setUser(response); // Set the user data
-                hideLoading();
+                const response = await apiClient<ApiResponse<User>>("/auth/me");
+                return response ?? null; // 👈 Якщо відповідь `undefined`, повертаємо `null`
             } catch (err) {
                 console.error("User data fetching failed", err);
-                setError("User data fetching failed");
+                return null;
+            } finally {
                 hideLoading();
             }
-        };
+        },
+        staleTime: 1000 * 60 * 5, // 5 хвилин кешування
+    });
 
-        fetchUser();
-    }, []);
+    const authorized = user?.data?.id ? user?.data?.id > 0 : false;
 
-    useEffect(() => {
-        if (user?.id) {
-            setAuthorized(true);
-        }
-    }, [user]);
+    // ✅ Логін через useMutation
+    const loginMutation = useMutation({
+        mutationFn: async (credentials: UserLoginRequestDto) => {
+            const response = await apiClient<ApiResponse<UserLoginResponse>>("/auth/login", {
+                method: "POST",
+                body: JSON.stringify(credentials),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.code !== 200) {
+                throw new Error(response.message || "Login failed");
+            }
+
+            return true;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["user"] }); // Оновити користувача після входу
+        },
+    });
 
     const login = async (credentials: UserLoginRequestDto): Promise<boolean> => {
         try {
-            const response = await apiClient<{ code: number, message: string }>("/auth/login", {
-                method: "POST",
-                body: credentials,
-            });
-
-            if (response.code === 200) {
-                return true;
-            } else {
-                setError(response.message || "Login failed");
-                return false;
-            }
+            return await loginMutation.mutateAsync(credentials);
         } catch (err) {
-            const error = err as Error;
-            setError(error.message || "Login failed");
+            console.error("Login failed", err);
             return false;
         }
     };
 
-    const logout = async () => {
-        try {
+    // ✅ Логаут через useMutation
+    const logoutMutation = useMutation({
+        mutationFn: async () => {
             await apiClient("/auth/logout", { method: "POST" });
-            setUser(null); // Clear user data on logout
-            router.push("/");
-        } catch (err) {
-            console.error("Logout failed", err);
-            setError("Logout failed");
-        }
+        },
+        onSuccess: () => {
+            queryClient.setQueryData(["user"], null); // Встановлюємо користувача в `null`
+        },
+    });
+
+    const logout = async () => {
+        await logoutMutation.mutateAsync();
     };
 
     return (
-        <AuthContext.Provider value={{ user, error, login, logout, authorized }}>
+        <AuthContext.Provider value={{ user, error: error?.message || "", login, logout, authorized }}>
             {children}
         </AuthContext.Provider>
     );

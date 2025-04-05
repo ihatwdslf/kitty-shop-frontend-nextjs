@@ -22,14 +22,14 @@ const Slide : React.FC<SlidePropsType> = ({ img, title, mainTitle, price }) => {
                 </h2>
 
                 <h3 className="text-[24px]">
-                    від ${price}.00{" "}
+                    від {price}.00₴{" "}
                     <del className="text-red-700 font-normal text-[18px]">
-                        ${price + 5}.00
+                        {price + 5}.00₴
                     </del>
                 </h3>
 
-                <div className="bg-rose-400 text-white text-[14px] md:text-[16px] p-2 px-4 rounded-lg
-                inline-block cursor-pointer hover:bg-stone-950">
+                <div className="bg-rose-400 hover:bg-rose-500 text-white text-[14px] md:text-[16px] p-2 px-4 rounded-lg
+                inline-block cursor-pointer">
                     Придбати зараз
                 </div>
             </div>

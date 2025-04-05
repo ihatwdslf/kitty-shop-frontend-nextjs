@@ -1,8 +1,7 @@
 ﻿const Footer = () => {
     return (
-        <div className="bg-stone-950 text-gray-500 text-center py-4 pb-16 md:mb-4">
-            Copyright &copy; KITTYSHOP <br />
-            All Rights Reserved 2025.
+        <div className="flex items-center justify-center text-xs bg-stone-950 text-gray-500 py-4 pb-4">
+            Copyright &copy; KITTYSHOP | Усі права захищено 2025.
         </div>
     )
 }

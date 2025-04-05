@@ -1,5 +1,5 @@
 ﻿import React from "react";
-import {Category} from "@/data/response/Category";
+import {Category} from "@/data/response/category/Category";
 import CategoryItem from "@/components/category/CategoryItem";
 
 const CategoryListItems: React.FC<{

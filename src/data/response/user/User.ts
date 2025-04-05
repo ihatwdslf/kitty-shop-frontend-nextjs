@@ -5,7 +5,7 @@ export interface User {
     firstName: string;
     lastName: string;
     role: UserRole;
-    phone: number;
+    phone: string;
     address: string;
 }
 

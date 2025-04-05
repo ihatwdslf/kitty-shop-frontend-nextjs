@@ -1,5 +1,5 @@
 ﻿import React from "react";
-import {Category} from "@/data/response/Category";
+import {Category} from "@/data/response/category/Category";
 import DynamicIcon from "@/components/DynamicIcon";
 import {IoIosArrowForward} from "react-icons/io";
 

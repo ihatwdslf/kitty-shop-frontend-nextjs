@@ -1,6 +1,7 @@
 ﻿"use client"
 
 import ProductListFilter from "@/components/product/ProductListFilter";
+import ProductsListSearchResultItems from "@/components/product/ProductsListSearchResultItems";
 
 const ProductsPage = () => {
 
@@ -12,7 +13,7 @@ const ProductsPage = () => {
                         <ProductListFilter/>
                     </div>
                     <div className="col-span-6 bg-white rounded-lg">
-
+                        <ProductsListSearchResultItems />
                     </div>
                 </div>
             </div>

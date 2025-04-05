@@ -14,9 +14,23 @@ import {AuthProvider} from "@/context/AuthContext";
 import PreLoader from "@/components/PreLoader";
 import {LoadingProvider, useLoading} from "@/context/LoadingContext";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import Navbar from "@/components/Navbar";
+import HeaderMain from "@/components/HeaderMain";
+import SessionErrorOccurredAlert from "@/components/SessionErrorOccurredAlert";
+import {ToastProvider} from "@/components/ui/toast";
 
 const eUkraineFont = localFont({
     src: [
+        {
+            path: "../assets/fonts/e-Ukraine-Thin.otf",
+            weight: "100",
+            style: "thin"
+        },
+        {
+            path: "../assets/fonts/e-Ukraine-UltraLight.otf",
+            weight: "200",
+            style: "extralight"
+        },
         {
             path: "../assets/fonts/e-Ukraine-Light.otf",
             weight: "300",
@@ -45,11 +59,13 @@ export default function RootLayout({
         <html lang="en">
         <body className={eUkraineFont.className}>
         <QueryClientProvider client={queryClient}>
-            <LoadingProvider>
-                <AuthProvider>
-                    <MainLayout>{children}</MainLayout>
-                </AuthProvider>
-            </LoadingProvider>
+            <ToastProvider>
+                <LoadingProvider>
+                    <AuthProvider>
+                        <MainLayout>{children}</MainLayout>
+                    </AuthProvider>
+                </LoadingProvider>
+            </ToastProvider>
         </QueryClientProvider>
         </body>
         </html>
@@ -67,9 +83,10 @@ const MainLayout = ({children}: { children: React.ReactNode }) => {
 
     return (
         <>
+            <SessionErrorOccurredAlert/>
             <HeaderTop/>
-            {/*<HeaderMain/>*/}
-            {/*<Navbar/>*/}
+            <HeaderMain/>
+            <Navbar/>
             <MobileNavbar/>
             {children}
             <Footer/>
