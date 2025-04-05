@@ -38,16 +38,16 @@ const ProductsListSearchResultItems = () => {
                                             items-center justify-between cursor-pointer navigation_accent__link"
                                         onClick={() => router.push(`/products/${product.id}`)}
                                     >
-                                        <div>
+                                        <div className="h-[12rem]">
                                                 <Image
                                                     src={product.imageUrl ? product.imageUrl : NOT_FOUND_IMAGE_URL}
                                                     alt={"image_" + product.imageUrl}
-                                                    width={270}
-                                                    height={300}
+                                                    width={0}
+                                                    height={0}
+                                                    sizes="100vh"
                                                     quality={100}
-                                                    className="overflow-hidden
-                                                    min-w-full min-h-[300px]
-                                                    max-w-full max-h-[300px]"
+                                                    style={{ width: 'auto', height: '100%' }}
+                                                    className="overflow-hidden"
                                                 />
                                         </div>
                                         <div className="pt-3 flex flex-col flex-grow">
