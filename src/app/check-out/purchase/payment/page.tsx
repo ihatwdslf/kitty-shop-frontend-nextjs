@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 
 const CheckOutPurchasePaymentPage = () => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [activeSection, setActiveSection] = useState<string | null>(null)
 
     useEffect(() => {
@@ -34,7 +35,7 @@ const CheckOutPurchasePaymentPage = () => {
     return (
         <div>
             <ChoosePaymentTypeRadio
-                onDeliveryChange={handlePaymentChange}
+                onPaymentChange={handlePaymentChange}
             />
         </div>
     )

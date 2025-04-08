@@ -1,6 +1,6 @@
 ﻿import { CategoryList } from "@/data/response/category/CategoryList";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiClient } from "@/data/apiClient";
+import { apiClient } from "@/data/api-client";
 import { ApiResponse } from "@/data/response/ApiResponse";
 import { Category } from "@/data/response/category/Category";
 

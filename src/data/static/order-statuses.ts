@@ -1,37 +1,52 @@
 ﻿export interface OrderStatusType {
     id: number;
-    key: string;
+    key: string | null;
     name: string;
 }
 
+// Constants for order statuses IDs
+export const OrderStatusesIDs = {
+    ALL: 0,
+    PENDING: 1,
+    PROCESSING: 2,
+    SHIPPED: 3,
+    DELIVERED: 4,
+    CANCELLED: 5,
+};
+
+export const AvailableToCancelStatusesIDs = [
+    OrderStatusesIDs.PENDING,
+    OrderStatusesIDs.PROCESSING,
+]
+
 export const OrderStatuses: OrderStatusType[] = [
     {
-        id: 0,
-        key: "all",
+        id: OrderStatusesIDs.ALL,
+        key: null,
         name: "Усі",
     },
     {
-        id: 1,
+        id: OrderStatusesIDs.PENDING,
         key: "pending",
-        name: "Очікується"
+        name: "Перевіряємо замовлення"
     },
     {
-        id: 2,
+        id: OrderStatusesIDs.PROCESSING,
         key: "processing",
         name: "Обробляється"
     },
     {
-        id: 3,
+        id: OrderStatusesIDs.SHIPPED,
         key: "shipped",
         name: "Відправлено"
     },
     {
-        id: 4,
+        id: OrderStatusesIDs.DELIVERED,
         key: "delivered",
         name: "Доставлено"
     },
     {
-        id: 5,
+        id: OrderStatusesIDs.CANCELLED,
         key: "cancelled",
         name: "Скасовано"
     },

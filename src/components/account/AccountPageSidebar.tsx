@@ -5,10 +5,11 @@ import UserSidebarAvatar from "@/components/account/sidebar/UserSidebarAvatar";
 import EmailAndPhoneSidebar from "@/components/account/sidebar/EmailAndPhoneSidebar";
 import {AccountSidebarButtons} from "@/data/static/account-sidebar-buttons";
 import Link from "next/link";
-import {cn} from "@/utils/classValue";
+import {cn} from "@/utils/class-value";
 import {Button} from "@/components/ui/button";
 import {IoLogOutOutline} from "react-icons/io5";
 import {useRouter} from "next/navigation";
+import {Routes} from "@/data/static/routes";
 
 const AccountPageSidebar = () => {
 
@@ -16,7 +17,7 @@ const AccountPageSidebar = () => {
     const {user, logout} = useAuth();
 
     const handleLogout = async () => {
-        router.push("/"); // Перенаправляємо на головну
+        router.push(Routes.HOME); // Перенаправляємо на головну
         await logout(); // Викликаємо logout з контексту
         window.location.reload(); // Перезавантажуємо сторінку
     };
@@ -35,7 +36,7 @@ const AccountPageSidebar = () => {
                             key={`sidebar_btn:${sidebarBtn.link}`}
                         >
                             <Link
-                                href={`/account` + sidebarBtn.link}
+                                href={Routes.ACCOUNT_SIDEBAR(sidebarBtn.link)}
                                 className={cn("inline-flex items-center justify-center font-light text-sm " +
                                     "text-muted-foreground transition duration-300 ease-in-out hover:text-black group ", {})}
                             >

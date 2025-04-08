@@ -4,6 +4,7 @@ import React from "react";
 import AccountPageSidebar from "@/components/account/AccountPageSidebar";
 import {useAuth} from "@/context/AuthContext";
 import {useRouter} from "next/navigation";
+import {Routes} from "@/data/static/routes";
 
 const AccountPageLayout = ({
                                children,
@@ -12,7 +13,7 @@ const AccountPageLayout = ({
     const { authorized } = useAuth();
 
     if (!authorized) {
-        router.push("/")
+        router.push(Routes.HOME)
     }
 
     return (

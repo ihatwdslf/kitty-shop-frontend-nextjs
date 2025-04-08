@@ -1,13 +1,14 @@
 ﻿"use client"
 
 import React, {Fragment, useEffect, useState} from "react";
-import {useCategories} from "@/hooks/useCategories";
+import {useCategories} from "@/hooks/use-categories";
 import {Category} from "@/data/response/category/Category";
 import {Checkbox} from "@/components/ui/checkbox";
 import {Label} from "@/components/ui/label";
 import {useRouter, useSearchParams} from "next/navigation";
 import {BsFire} from "react-icons/bs";
 import {Button} from "@/components/ui/button";
+import {Routes} from "@/data/static/routes";
 
 // Define the TreeNode structure
 interface TreeNode {
@@ -46,7 +47,7 @@ const ProductListFilter = () => {
         const currentQueryString = searchParams.get("categoryKeys");
 
         if (newQueryString !== currentQueryString) {
-            router.push(newQueryString ? `/products?categoryKeys=${newQueryString}` : "/products");
+            router.push(newQueryString ? Routes.PRODUCTS_BY_CATEGORIES(newQueryString) : Routes.PRODUCTS);
         }
     }, [categories, checkedNodes, router, searchParams]);
 
@@ -145,7 +146,7 @@ const ProductListFilter = () => {
     // Handle clearing all checkboxes
     const clearAllCheckboxes = () => {
         setCheckedNodes(new Set()); // Clear all checked nodes
-        router.push("/products");   // Update the URL to reflect the changes
+        router.push(Routes.PRODUCTS);   // Update the URL to reflect the changes
     };
 
     const renderTreeNode = (node: TreeNode) => {

@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import React, { createContext, ReactNode, useContext } from "react";
-import { apiClient } from "@/data/apiClient";
+import { apiClient } from "@/data/api-client";
 import { User } from "@/data/response/user/User";
 import { UserLoginRequestDto } from "@/data/request/auth/UserLoginRequestDto";
 import { useLoading } from "@/context/LoadingContext";

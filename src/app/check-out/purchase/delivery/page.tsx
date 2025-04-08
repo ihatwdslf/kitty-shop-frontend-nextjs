@@ -2,12 +2,13 @@
 
 import {useEffect} from "react";
 import {useRouter} from "next/navigation";
-import {useCartCount} from "@/hooks/useCartCount";
+import {useCartCount} from "@/hooks/use-cart-count";
 import DeliveryVariantsTabs from "@/components/DeliveryVariantsTabs";
 import {DeliveryOptions, getDeliveryOptionItemByKey, saveDeliveryKey} from "@/data/static/delivery-options";
 import useDeliveryKey from "@/hooks/use-delivery-key";
 import {useAuth} from "@/context/AuthContext";
 import ChangeDeliveryAddress from "@/components/ChangeDeliveryAddress";
+import {Routes} from "@/data/static/routes";
 
 const CheckOutPurchaseDeliveryPage = () => {
 
@@ -18,7 +19,7 @@ const CheckOutPurchaseDeliveryPage = () => {
     const {user} = useAuth();
 
     useEffect(() => {
-        if (cartItemsCount <= 0) router.push(`/check-out/cart`);
+        if (cartItemsCount <= 0) router.push(Routes.CHECKOUT_CART);
     }, [router]);
 
     const deliveryKey = useDeliveryKey(); // Отримуємо актуальний deliveryKey
@@ -41,21 +42,12 @@ const CheckOutPurchaseDeliveryPage = () => {
                 </div>
                 <div className="text-xs text-muted-foreground space-y-1">
                     <div>
-                        {user?.data?.firstName
-                            ? user?.data?.firstName
-                            : "Невідомо"
-                        }
+                        {user?.data?.firstName ?? "Невідомо"}
                         {" "}
-                        {user?.data?.lastName
-                            ? user?.data?.lastName
-                            : "Невідомо"
-                        }
+                        {user?.data?.lastName ?? "Невідомо"}
                     </div>
                     <div>
-                        {user?.data?.phone
-                            ? user?.data?.phone
-                            : "Номер не вказано"
-                        }
+                        {user?.data?.phone ?? "Номер не вказано"}
                     </div>
                 </div>
             </div>

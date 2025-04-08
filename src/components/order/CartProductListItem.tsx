@@ -1,11 +1,11 @@
 ﻿import React, {useEffect} from "react";
-import {CART_ITEMS_UPDATED_EVENT, CartItem} from "@/utils/cartStorage";
-import {useProducts} from "@/hooks/useProducts";
+import {CART_ITEMS_UPDATED_EVENT, CartItem, removeFromCart} from "@/utils/cart-storage";
+import {useProducts} from "@/hooks/use-products";
 import Image from "next/image";
 import CartItemAddOrRemove from "@/components/CartItemAddOrRemove";
 import ProductPriceWithPossibleDiscount from "@/components/product/ProductPriceWithPossibleDiscount";
 import {Product} from "@/data/response/product/Product";
-import {useCartProductCount} from "@/hooks/useCartCount";
+import {useCartProductCount} from "@/hooks/use-cart-count";
 import {FaRegTrashAlt} from "react-icons/fa";
 import {FaCheck} from "react-icons/fa6";
 
@@ -29,6 +29,10 @@ const CartProductListItem: React.FC<CartProductListItemProps> = ({cartItem}) => 
     const product: Product | undefined = productData?.data;
 
     const itemsCount = useCartProductCount(product?.id)
+
+    const handleRemoveFromCartItem = () => {
+        removeFromCart(product?.id ?? 0, itemsCount);
+    }
 
     return (
         <div>
@@ -61,6 +65,7 @@ const CartProductListItem: React.FC<CartProductListItemProps> = ({cartItem}) => 
                             <div
                                 className="px-3 py-2 text-[13px] font-light flex flex-cols gap-x-2 items-center
                                     cursor-pointer hover:bg-gray-100 rounded-md"
+                                onClick={handleRemoveFromCartItem}
                             >
                                 <FaRegTrashAlt/>
                                 Видалити

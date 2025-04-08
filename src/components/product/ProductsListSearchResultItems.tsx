@@ -1,10 +1,11 @@
-﻿import {useProducts} from "@/hooks/useProducts";
+﻿import {useProducts} from "@/hooks/use-products";
 import React, {useMemo} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import {LiaShoppingCartSolid} from "react-icons/lia";
 import PromotionBadge from "@/components/PromotionBadge";
 import Image from "next/image";
 import {formatPrice} from "@/utils/price";
+import {Routes} from "@/data/static/routes";
 
 const ProductsListSearchResultItems = () => {
 
@@ -36,7 +37,7 @@ const ProductsListSearchResultItems = () => {
                                     <div
                                         className="border border-gray-200 p-4 h-full flex flex-col relative
                                             items-center justify-between cursor-pointer navigation_accent__link"
-                                        onClick={() => router.push(`/products/${product.id}`)}
+                                        onClick={() => router.push(Routes.PRODUCT_DETAILS(product.id))}
                                     >
                                         <div className="h-[12rem]">
                                                 <Image

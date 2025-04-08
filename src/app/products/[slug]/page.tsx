@@ -2,25 +2,25 @@
 
 import React, {useRef} from "react";
 import Image from "next/image";
-import {cn} from "@/utils/classValue";
+import {cn} from "@/utils/class-value";
 import {useParams, useRouter} from "next/navigation";
-import {useProducts} from "@/hooks/useProducts";
+import {useProducts} from "@/hooks/use-products";
 import {ApiResponse} from "@/data/response/ApiResponse";
 
 import {Product} from "@/data/response/product/Product";
 import ProductPriceWithPossibleDiscount from "@/components/product/ProductPriceWithPossibleDiscount";
 
 import {LiaShoppingCartSolid} from "react-icons/lia";
-import NotAuthorizedDynamicToast from "@/components/NotAuthorizedDynamicToast";
 import PossiblePaymentServicesBanner from "@/components/PossiblePaymentServicesBanner";
 import ProductStockAvailability from "@/components/product/ProductStockAvailability";
 import SeeOtherProductsByCategorySequence from "@/components/product/SeeOtherProductsByCategorySequence";
 import {CategoryIdentifierAndNameResponseDto} from "@/data/response/category/CategoryIdentifierAndNameResponseDto";
 import TurnoverConditions from "@/components/TurnoverСonditions";
 import ProductAddedToCartSheet from "@/components/order/ProductAddedToCartSheet";
-import {addToCart} from "@/utils/cartStorage";
-import {useCartProductCount} from "@/hooks/useCartCount";
+import {addToCart} from "@/utils/cart-storage";
+import {useCartProductCount} from "@/hooks/use-cart-count";
 import {FaCheck} from "react-icons/fa6";
+import {Routes} from "@/data/static/routes";
 
 const ProductPage = () => {
 
@@ -54,7 +54,6 @@ const ProductPage = () => {
     }
 
     const handlePurchaseButtonClick = () => {
-        console.log(countForProduct)
         if (countForProduct <= 0)
             addToCart(productId, 1)
     }
@@ -103,7 +102,7 @@ const ProductPage = () => {
                                             <div
                                                 className="flex flex-cols items-center justify-center gap-x-1 px-4 py-3 mt-2
                                                 text-white text-[14px] rounded-sm bg-rose-400 hover:bg-rose-500 cursor-pointer"
-                                                onClick={() => router.push("/check-out/cart")}
+                                                onClick={() => router.push(Routes.CHECKOUT_CART)}
                                             >
                                                 <FaCheck size={16}/>
                                                 Перейти до кошику
@@ -123,7 +122,6 @@ const ProductPage = () => {
                                         {(productStockCountQuantity > 0) ? (
                                             <div>
                                                 <ProductAddedToCartSheet productId={productId} triggerRef={triggerRef}/>
-                                                <NotAuthorizedDynamicToast triggerRef={triggerRef}/>
                                             </div>
                                         ) : (
                                             <div className="flex flex-rows items-center justify-center">

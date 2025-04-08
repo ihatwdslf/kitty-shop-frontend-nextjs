@@ -1,12 +1,11 @@
 ﻿import {useEffect, useState} from "react";
-import {CART_ITEMS_UPDATED_EVENT, getCartItemByProductId, getCartItems, STORAGE_EVENT} from "@/utils/cartStorage";
+import {CART_ITEMS_UPDATED_EVENT, getCartItemByProductId, getCartItems, STORAGE_EVENT} from "@/utils/cart-storage";
 
 // ✅ Хук повертає загальну кількість або кількість для конкретного продукту
 export function useCartCount(productId?: number): number {
 
     // if (!productId) return 0;
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [count, setCount] = useState(() => {
         const items = getCartItems();
         return productId !== undefined

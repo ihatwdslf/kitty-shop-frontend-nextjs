@@ -3,9 +3,10 @@ import React from "react";
 import {useProducts} from "@/hooks/use-products";
 import {Product} from "@/data/response/product/Product";
 import Image from "next/image";
-import {formatPrice} from "@/utils/price";
 import {useRouter} from "next/navigation";
 import {Routes} from "@/data/static/routes";
+import AccountOrderItemProductPriceWithPossibleDiscount
+    from "@/components/AccountOrderItemProductPriceWithPossibleDiscount";
 
 interface CartItemPurchaseProps {
     cartItem: CartItem;
@@ -24,9 +25,9 @@ const CartItemPurchase: React.FC<CartItemPurchaseProps> = ({cartItem}) => {
         <div className="pr-7">
             <div
                 onClick={() => router.push(product?.id ? Routes.PRODUCT_DETAILS(product?.id) : Routes.PRODUCTS)}
-                className="flex flex-cols items-center gap-x-3 cursor-pointer"
+                className="flex flex-cols items-center gap-x-3 cursor-pointer p-4 border-b-1"
             >
-                <div className="h-[4rem]">
+                <div className="flex flex-cols h-[4rem] w-[4rem] items-center justify-center">
                     <Image
                         src={product?.imageUrl ? product?.imageUrl : NOT_FOUND_IMAGE_URL}
                         alt={"image_" + product?.imageUrl}
@@ -38,10 +39,19 @@ const CartItemPurchase: React.FC<CartItemPurchaseProps> = ({cartItem}) => {
                         className="overflow-hidden"
                     />
                 </div>
-                <div className="text-[13px] font-thin">
-                    {formatPrice((product?.price ?? 0) * (1.0 - (product?.discount ?? 0) / 100))}
-                    <div className="text-[9px] text-muted-foreground">
-                        x {cartItem?.quantity} од.
+                <div className="text-[13px] font-thin flex flex-cols items-center w-full justify-between">
+                    <div className="text-black">
+                        {product?.name}
+                    </div>
+                    <div className="flex flex-cols gap-x-10 items-center">
+                        <span>
+                            {cartItem?.quantity} шт.
+                        </span>
+                        <AccountOrderItemProductPriceWithPossibleDiscount
+                            quantity={cartItem?.quantity}
+                            price={product?.price ?? 0}
+                            discount={product?.discount ?? 0}
+                        />
                     </div>
                 </div>
             </div>

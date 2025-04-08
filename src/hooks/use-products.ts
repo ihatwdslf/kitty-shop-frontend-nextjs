@@ -2,9 +2,9 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {ListResponse} from "@/data/response/ListResponse";
 import {Product} from "@/data/response/product/Product";
-import {apiClient} from "@/data/apiClient";
+import {apiClient} from "@/data/api-client";
 import {ProductGetTotalsResponse} from "@/data/response/product/ProductGetTotalsResponse";
-import {CartItem} from "@/utils/cartStorage";
+import {CartItem} from "@/utils/cart-storage";
 
 export const useProductTotals = (cartItems: CartItem[]) => {
     return useQuery<ApiResponse<ProductGetTotalsResponse>>({

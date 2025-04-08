@@ -13,9 +13,10 @@ import {
 import NestedOnlinePaymentMethods from "@/components/NestedOnlinePaymentMethods";
 import CreditFundsPaymentMethodDetails from "@/components/CreditFundsPaymentMethodDetails";
 import CompanyPaymentMethodDetails, {
-    COMPANY_EDRPOU_KEY,
-    COMPANY_EMAIL_KEY
+    COMPANY_EDRPOU_OR_IPN_STORAGE_KEY,
+    COMPANY_EMAIL_STORAGE_KEY
 } from "@/components/CompanyPaymentMethodDetails";
+import {PaymentMethods} from "@/data/reference/payment-methods";
 
 interface ChoosePaymentTypeRadioProps {
     onPaymentChange?: (sectionKey: string) => void
@@ -45,20 +46,19 @@ export default function ChoosePaymentTypeRadio({onPaymentChange}: ChoosePaymentT
         // Check if the section has changed
         if (prevSection !== sectionKey) {
             // If changing from the "company_payment_section", clear related data
-            if (prevSection === "company_payment_section" && sectionKey !== "company_payment_section") {
-                localStorage.removeItem(COMPANY_EDRPOU_KEY);
-                localStorage.removeItem(COMPANY_EMAIL_KEY);
+            if (prevSection === PaymentSections[PaymentSectionIDs.COMPANY].key && sectionKey !== PaymentSections[PaymentSectionIDs.COMPANY].key) {
+                localStorage.removeItem(COMPANY_EDRPOU_OR_IPN_STORAGE_KEY);
+                localStorage.removeItem(COMPANY_EMAIL_STORAGE_KEY);
             }
+
             setSelectedSectionKey(sectionKey);
             localStorage.setItem(PAYMENT_SECTION_STORAGE_KEY, sectionKey);
-            onPaymentChange?.(sectionKey);
+            localStorage.setItem(PAYMENT_METHOD_STORAGE_KEY, PaymentMethods.find(s => s.section === sectionKey)?.key ?? "");
 
-            // If the section has changed, reset the payment method if it's no longer valid
-            const section = PaymentSections.find(s => s.key === sectionKey);
-            if (section && !section.methodsKeys.includes(selectedMethodKey || "")) {
-                setSelectedMethodKey(null);
+            if (prevSection !== PaymentSections[PaymentSectionIDs.ONLINE].key && sectionKey === PaymentSections[PaymentSectionIDs.ONLINE].key) {
                 localStorage.removeItem(PAYMENT_METHOD_STORAGE_KEY);
             }
+            onPaymentChange?.(sectionKey);
         }
     };
 
@@ -69,7 +69,8 @@ export default function ChoosePaymentTypeRadio({onPaymentChange}: ChoosePaymentT
             case PaymentSectionIDs.CREDIT_FUNDS:
                 return <CreditFundsPaymentMethodDetails/>;
             case PaymentSectionIDs.COMPANY:
-                return <CompanyPaymentMethodDetails selectedSectionKey={PaymentSections.find(s => s.id === sectionId)?.key ?? null}/>;
+                return <CompanyPaymentMethodDetails
+                    selectedSectionKey={PaymentSections.find(s => s.id === sectionId)?.key ?? null}/>;
             default:
                 return null;
         }

@@ -1,7 +1,9 @@
+"use client";
+
 import {Button} from "@/components/ui/button"
-import {useCartProductCount} from "@/hooks/useCartCount";
+import {useCartProductCount} from "@/hooks/use-cart-count";
 import {FiMinus, FiPlus} from "react-icons/fi";
-import {addToCart, removeFromCart} from "@/utils/cartStorage";
+import {addToCart, removeFromCart} from "@/utils/cart-storage";
 
 interface CartItemAddOrRemove {
     productId: number | undefined;

@@ -8,6 +8,7 @@ import {
     StepperTrigger,
 } from "@/components/ui/stepper"
 import {PurchaseSteps} from "@/data/static/purchase-steps";
+import {Routes} from "@/data/static/routes";
 
 interface PurchaseStepsProgressLineProps {
     activeStep: number;
@@ -24,7 +25,7 @@ export default function PurchaseStepsProgressLine({activeStep}: PurchaseStepsPro
                         step={step}
                         className="not-last:flex-1 max-md:items-start"
                     >
-                        <Link href={`/check-out/purchase/${linkPart}`}>
+                        <Link href={Routes.CHECKOUT_PURCHASE_STEP(linkPart)}>
                             <StepperTrigger className="rounded max-md:flex-col cursor-pointer">
                                 <StepperIndicator/>
                                 <div className="text-center md:text-left">

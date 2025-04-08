@@ -30,8 +30,6 @@ const HeaderTop = () => {
                             name="currency"
                             id="currency"
                         >
-                            <option value="USD $">USD $</option>
-                            <option value="EUR €">EUR €</option>
                             <option value="UAH ₴">UAH ₴</option>
                         </select>
 

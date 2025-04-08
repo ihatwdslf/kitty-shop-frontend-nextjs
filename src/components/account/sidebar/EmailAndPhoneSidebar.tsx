@@ -1,5 +1,6 @@
 ﻿import {User} from "@/data/response/user/User";
 import React from "react";
+import {BiSolidEdit} from "react-icons/bi";
 
 interface EmailAndPhoneSidebarProps {
     user: User | undefined;
@@ -8,6 +9,16 @@ interface EmailAndPhoneSidebarProps {
 const EmailAndPhoneSidebar: React.FC<EmailAndPhoneSidebarProps> = ({user}) => {
     return (
         <div>
+            <div className="flex items-center justify-between text-sm pb-1">
+                <div>
+                    {user?.firstName ?? "Невідомо"}
+                    {" "}
+                    {user?.lastName ?? "Невідомо"}
+                </div>
+                <div className="cursor-pointer">
+                    <BiSolidEdit size={20}/>
+                </div>
+            </div>
             <InfoItemDetails itemData={user?.phone} itemLabel={`Номер мобільного`}/>
             <InfoItemDetails itemData={user?.email} itemLabel={`E-mail`}/>
         </div>

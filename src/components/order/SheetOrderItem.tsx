@@ -1,10 +1,9 @@
 ﻿import React from "react";
-import {getCartItemByProductId} from "@/utils/cartStorage";
-import {useProducts} from "@/hooks/useProducts";
+import {getCartItemByProductId} from "@/utils/cart-storage";
+import {useProducts} from "@/hooks/use-products";
 import Image from "next/image";
 import ProductPriceWithPossibleDiscount from "@/components/product/ProductPriceWithPossibleDiscount";
-import CartItemAddOrRemove from "@/components/CartItemAddOrRemove";
-import {useCartProductCount} from "@/hooks/useCartCount";
+import {useCartProductCount} from "@/hooks/use-cart-count";
 
 interface SheetOrderItemProps {
     productId: number;
@@ -43,9 +42,6 @@ const SheetOrderItem: React.FC<SheetOrderItemProps> = ({productId}) => {
                 {product?.data?.name}
                 <div className="pt-2 text-[10px] text-muted-foreground">
                     Код: {product?.data?.stockKeepingUnit} ({product?.data?.id})
-                </div>
-                <div className="pt-5">
-                    <CartItemAddOrRemove productId={productId}/>
                 </div>
             </div>
             <div>

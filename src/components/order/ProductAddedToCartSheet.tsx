@@ -1,8 +1,7 @@
 ﻿import React, {RefObject, useCallback, useEffect, useState} from "react";
 import {Button} from "@/components/ui/button";
 import {Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle} from "../ui/sheet";
-import {useAuth} from "@/context/AuthContext";
-import {CART_ITEMS_UPDATED_EVENT, getCartItemByProductId} from "@/utils/cartStorage";
+import {CART_ITEMS_UPDATED_EVENT, getCartItemByProductId} from "@/utils/cart-storage";
 import SheetOrderItem from "@/components/order/SheetOrderItem";
 
 interface OrderSheetProps {
@@ -12,7 +11,6 @@ interface OrderSheetProps {
 
 const ProductAddedToCartSheet: React.FC<OrderSheetProps> = ({productId, triggerRef}) => {
 
-    const {authorized} = useAuth()
     const [open, setOpen] = useState(false)
 
     const handleOpenChange = useCallback((isOpen: boolean) => {
@@ -49,7 +47,7 @@ const ProductAddedToCartSheet: React.FC<OrderSheetProps> = ({productId, triggerR
         return () => window.removeEventListener(CART_ITEMS_UPDATED_EVENT, updateFromStorage);
     }, []);
 
-    return authorized ? (
+    return (
         <Sheet
             open={open}
             onOpenChange={() => setOpen(!open)}
@@ -92,7 +90,7 @@ const ProductAddedToCartSheet: React.FC<OrderSheetProps> = ({productId, triggerR
                 </div>
             </SheetContent>
         </Sheet>
-    ) : null;
+    );
 };
 
 export default ProductAddedToCartSheet;

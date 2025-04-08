@@ -11,7 +11,7 @@ import {
 import {useAuth} from "@/context/AuthContext";
 import {ApiError} from "@/data/response/ApiError";
 import {FcSupport} from "react-icons/fc";
-import {AUTH_TOKEN_COOKIE_NAME} from "@/data/apiClient";
+import {AUTH_TOKEN_COOKIE_NAME} from "@/data/api-client";
 
 const SessionErrorOccurredAlert = () => {
 

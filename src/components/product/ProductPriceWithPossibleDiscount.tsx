@@ -1,6 +1,6 @@
 ﻿import {formatPrice} from "@/utils/price";
 import PromotionBadge from "@/components/PromotionBadge";
-import {cn} from "@/utils/classValue";
+import {cn} from "@/utils/class-value";
 import React from "react";
 
 interface ProductPriceWithPossibleDiscountProps {

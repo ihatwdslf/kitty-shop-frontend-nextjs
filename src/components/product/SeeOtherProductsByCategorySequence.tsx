@@ -1,6 +1,7 @@
 ﻿import React, {ReactNode} from "react";
 import Link from "next/link";
 import {CategoryIdentifierAndNameResponseDto} from "@/data/response/category/CategoryIdentifierAndNameResponseDto";
+import {Routes} from "@/data/static/routes";
 
 interface SeeOtherProductsByCategorySequenceProps {
     categories: CategoryIdentifierAndNameResponseDto[];
@@ -15,7 +16,7 @@ const SeeOtherProductsByCategorySequence: React.FC<SeeOtherProductsByCategorySeq
                     const link = (
                         <Link
                             key={cat.categoryId}
-                            href={`/products?categoryKeys=${cat.categoryKey}`}
+                            href={Routes.PRODUCTS_BY_CATEGORIES(cat.categoryKey)}
                             className="pl-1 underline"
                         >
                             {cat.categoryName}
@@ -32,7 +33,7 @@ const SeeOtherProductsByCategorySequence: React.FC<SeeOtherProductsByCategorySeq
                     return acc;
                 }, [])
             ) : (
-                <Link href="/products" className="pl-1 underline">
+                <Link href={Routes.PRODUCTS} className="pl-1 underline">
                     інше
                 </Link>
             )}

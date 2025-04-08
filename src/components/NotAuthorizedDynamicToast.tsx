@@ -91,7 +91,7 @@ function useProgressTimer({
 }
 
 interface NotAuthorizedDynamicToastProps {
-    triggerRef: RefObject<HTMLElement> | RefObject<HTMLDivElement | null>;
+    triggerRef: RefObject<HTMLElement> | RefObject<HTMLDivElement | null> | RefObject<HTMLButtonElement | null>;
 }
 
 export default function NotAuthorizedDynamicToast({triggerRef}: NotAuthorizedDynamicToastProps) {
@@ -100,7 +100,7 @@ export default function NotAuthorizedDynamicToast({triggerRef}: NotAuthorizedDyn
 
     const [open, setOpen] = useState(false)
     const toastDuration = 5000
-    const {progress, start, pause, reset} = useProgressTimer({
+    const {progress, start, reset} = useProgressTimer({
         duration: toastDuration,
         onComplete: () => setOpen(false),
     })

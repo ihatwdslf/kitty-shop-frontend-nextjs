@@ -5,11 +5,12 @@ import {clsx} from "clsx";
 import {usePathname} from "next/navigation";
 import {buildNavbarItemId, isNavbarItemActive} from "@/utils/navbar";
 import {BsFire} from "react-icons/bs";
-import {useCategories} from "@/hooks/useCategories";
+import {useCategories} from "@/hooks/use-categories";
+import {Routes} from "@/data/static/routes";
 
 const Navbar = () => {
 
-    const { categories } = useCategories();
+    const {categories} = useCategories();
 
     const pathname = usePathname();
 
@@ -19,33 +20,33 @@ const Navbar = () => {
                 <div className="flex w-fit gap-10 mx-auto font-medium py-4 text-stone-950">
                     <Link
                         id={buildNavbarItemId("home-page")}
-                        href={`/`}
+                        href={Routes.HOME}
                         key={`home-page`}
                         className={clsx(
                             "navigation_accent__link relative uppercase",
-                            {"active": isNavbarItemActive(pathname, `/`)}
+                            {"active": isNavbarItemActive(pathname, Routes.HOME)}
                         )}
                     >
                         Головна
                     </Link>
                     <Link
                         id={buildNavbarItemId("catalog")}
-                        href={`/products`}
+                        href={Routes.PRODUCTS}
                         key={`products-page`}
                         className={clsx(
                             "navigation_accent__link relative uppercase",
-                            {"active": isNavbarItemActive(pathname, `/products`)}
+                            {"active": isNavbarItemActive(pathname, Routes.PRODUCTS)}
                         )}
                     >
                         Каталог
                     </Link>
                     {categories?.data?.list.map((item) => {
-                        if(!item.isQuicklyAccessible) return null;
+                        if (!item.isQuicklyAccessible) return null;
 
                         return (
                             <Link
                                 id={buildNavbarItemId(item.key.toString())}
-                                href={`/products?categoryKeys=${item.key}`}
+                                href={Routes.PRODUCTS_BY_CATEGORIES(item.key)}
                                 key={`${item.key}-page`}
                                 className={clsx(
                                     "navigation_accent__link relative uppercase"
@@ -57,11 +58,11 @@ const Navbar = () => {
                     })}
                     <Link
                         id={buildNavbarItemId("hot-offers")}
-                        href={`/products?categoryKeys=hot`}
+                        href={Routes.PRODUCTS_BY_CATEGORIES("hot")}
                         key={`hot-offers-page`}
                         className={clsx(
                             "navigation_accent__link relative uppercase",
-                            {"active": isNavbarItemActive(pathname, `/products`)}
+                            {"active": isNavbarItemActive(pathname, Routes.PRODUCTS)}
                         )}
                     >
                         <BsFire className="inline-block mb-1"/>

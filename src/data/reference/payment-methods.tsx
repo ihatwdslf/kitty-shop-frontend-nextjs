@@ -1,9 +1,11 @@
 ﻿import {JSX} from "react";
+import {PaymentSectionIDs, PaymentSections} from "@/data/reference/payment-sections";
 
 export interface PaymentMethodType {
     id: number;
     key: string;
     name: string;
+    section: string;
     icon?: () => JSX.Element;
 }
 
@@ -44,38 +46,45 @@ export const PaymentMethods: PaymentMethodType[] = [
         id: 1,
         key: "on_delivery_pay",
         name: "Оплата при отриманні",
+        section: PaymentSections[PaymentSectionIDs.ON_DELIVERY].key
     },
     {
         id: 2,
         key: "online_pay_credit_card",
         name: "Карткою онлайн",
+        section: PaymentSections[PaymentSectionIDs.ONLINE].key
     },
     {
         id: 3,
         key: "online_pay_privat24",
         name: "Privat 24",
-        icon: Privat24Icon
+        icon: Privat24Icon,
+        section: PaymentSections[PaymentSectionIDs.ONLINE].key
     },
     {
         id: 4,
         key: "online_pay_apple",
         name: "Apple Pay",
-        icon: AppleIcon
+        icon: AppleIcon,
+        section: PaymentSections[PaymentSectionIDs.ONLINE].key
     },
     {
         id: 5,
         key: "online_pay_google",
         name: "Google Pay",
+        section: PaymentSections[PaymentSectionIDs.ONLINE].key,
         icon: GoogleIcon
     },
     {
         id: 6,
         key: "credit_funds_pay",
         name: "Оплата частинами кредитними коштами",
+        section: PaymentSections[PaymentSectionIDs.CREDIT_FUNDS].key
     },
     {
         id: 7,
         key: "company_pay",
         name: "Рахунок підприємства",
+        section: PaymentSections[PaymentSectionIDs.COMPANY].key
     },
 ];

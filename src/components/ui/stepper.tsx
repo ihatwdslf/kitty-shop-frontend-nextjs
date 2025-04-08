@@ -5,7 +5,7 @@ import {createContext, useContext} from "react"
 import {Slot} from "@radix-ui/react-slot"
 import {CheckIcon, LoaderCircleIcon} from "lucide-react"
 
-import {cn} from "@/utils/classValue"
+import {cn} from "@/utils/class-value"
 
 // Types
 type StepperContextValue = {

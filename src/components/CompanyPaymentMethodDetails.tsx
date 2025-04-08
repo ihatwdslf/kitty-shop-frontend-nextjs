@@ -3,12 +3,15 @@
 import React, {useEffect, useRef, useState} from "react";
 import CompanyPaymentScalableInput from "@/components/CompanyPaymentScalableInput";
 
-export const COMPANY_EDRPOU_KEY = "company_edrpou"
-export const COMPANY_EMAIL_KEY = "company_email"
+export const COMPANY_EDRPOU_OR_IPN_STORAGE_KEY = "company_edrpou_or_ipn"
+export const COMPANY_EMAIL_STORAGE_KEY = "company_email"
 
 interface CompanyPaymentMethodDetailsProps {
     selectedSectionKey: string | null // Added prop for selected section
 }
+
+export const ERDPOU_OR_IPN_REGEX = /\b\d{8}\b|\b\d{10}\b/g;
+export const EMAIL_REGEX = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 
 const CompanyPaymentMethodDetails: React.FC<CompanyPaymentMethodDetailsProps> = ({selectedSectionKey}) => {
 
@@ -21,8 +24,8 @@ const CompanyPaymentMethodDetails: React.FC<CompanyPaymentMethodDetailsProps> = 
 
     // Load saved data when the component mounts (if it exists in localStorage)
     useEffect(() => {
-        const savedEdrpou = localStorage.getItem(COMPANY_EDRPOU_KEY)
-        const savedEmail = localStorage.getItem(COMPANY_EMAIL_KEY)
+        const savedEdrpou = localStorage.getItem(COMPANY_EDRPOU_OR_IPN_STORAGE_KEY)
+        const savedEmail = localStorage.getItem(COMPANY_EMAIL_STORAGE_KEY)
 
         if (savedEdrpou) {
             setEdrpou(savedEdrpou)
@@ -38,8 +41,8 @@ const CompanyPaymentMethodDetails: React.FC<CompanyPaymentMethodDetailsProps> = 
         if (prevSelectedSectionKey.current && prevSelectedSectionKey.current !== selectedSectionKey) {
             if (selectedSectionKey !== "company_payment_section") {
                 // If we are changing from the "company_payment_section", remove data from localStorage
-                localStorage.removeItem(COMPANY_EDRPOU_KEY)
-                localStorage.removeItem(COMPANY_EMAIL_KEY)
+                localStorage.removeItem(COMPANY_EDRPOU_OR_IPN_STORAGE_KEY)
+                localStorage.removeItem(COMPANY_EMAIL_STORAGE_KEY)
                 setEdrpou(null)
                 setEmail(null)
             }
@@ -52,12 +55,12 @@ const CompanyPaymentMethodDetails: React.FC<CompanyPaymentMethodDetailsProps> = 
     // Save data to localStorage and update state when input changes
     const handleEdrpouChange = (value: string) => {
         setEdrpou(value)
-        localStorage.setItem(COMPANY_EDRPOU_KEY, value)
+        localStorage.setItem(COMPANY_EDRPOU_OR_IPN_STORAGE_KEY, value)
     }
 
     const handleEmailChange = (value: string) => {
         setEmail(value)
-        localStorage.setItem(COMPANY_EMAIL_KEY, value)
+        localStorage.setItem(COMPANY_EMAIL_STORAGE_KEY, value)
     }
 
     return (

@@ -3,8 +3,9 @@
 import {Button} from "@/components/ui/button"
 import {useAuth} from "@/context/AuthContext";
 import {LiaShoppingCartSolid} from "react-icons/lia";
-import {useCartTotalCount} from "@/hooks/useCartCount";
+import {useCartTotalCount} from "@/hooks/use-cart-count";
 import {useRouter} from "next/navigation";
+import {Routes} from "@/data/static/routes";
 
 export default function ShoppingCardButton() {
 
@@ -15,7 +16,7 @@ export default function ShoppingCardButton() {
     return (
         <>
             <Button
-                onClick={() => router.push("/check-out/cart")}
+                onClick={() => router.push(Routes.CHECKOUT_CART)}
                 className="bg-gray-200 hover:bg-gray-300 text-black cursor-pointer gap-1 px-3 relative"
             >
                 <div className="w-5 h-5">

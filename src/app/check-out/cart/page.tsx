@@ -1,12 +1,12 @@
 ﻿"use client"
 
-import {useCartCount} from "@/hooks/useCartCount";
-import {getCartItems} from "@/utils/cartStorage";
+import {useCartCount} from "@/hooks/use-cart-count";
+import {getCartItems} from "@/utils/cart-storage";
 
 import {FaRegTrashAlt} from "react-icons/fa";
 import {formatPrice} from "@/utils/price";
 import {Button} from "@/components/ui/button";
-import {useProductTotals} from "@/hooks/useProducts";
+import {useProductTotals} from "@/hooks/use-products";
 import {MdDiscount} from "react-icons/md";
 import {IoMdCash} from "react-icons/io";
 import {RiBillFill} from "react-icons/ri";
@@ -14,6 +14,10 @@ import CartProductList from "@/components/order/CartProductList";
 import PossiblePaymentServicesBanner from "@/components/PossiblePaymentServicesBanner";
 import {ProductGetTotalsResponse} from "@/data/response/product/ProductGetTotalsResponse";
 import {useRouter} from "next/navigation";
+import {Routes} from "@/data/static/routes";
+import NotAuthorizedDynamicToast from "@/components/NotAuthorizedDynamicToast";
+import React, {useRef} from "react";
+import {useAuth} from "@/context/AuthContext";
 
 const CheckOutCartPage = () => {
 
@@ -21,8 +25,17 @@ const CheckOutCartPage = () => {
     const cartItems = getCartItems();
     const cartItemsCount = useCartCount();
 
+    const { authorized } = useAuth();
+
     const {data: totalsData, isLoading} = useProductTotals(cartItems);
     const totals: ProductGetTotalsResponse | undefined = totalsData?.data;
+
+    const triggerRef = useRef<HTMLButtonElement>(null);
+
+    const handleClickContinueBtn = () => {
+        if (authorized)
+            router.push(Routes.CHECKOUT_PURCHASE);
+    }
 
     return (
         <main className="bg-stone-100">
@@ -51,11 +64,13 @@ const CheckOutCartPage = () => {
                             <Button
                                 className="flex w-full bg-rose-400 hover:bg-rose-500 cursor-pointer p-6 text-center
                                     text-white text-[14px] rounded-lg"
-                                onClick={() => router.push(`/check-out/purchase`)}
+                                onClick={handleClickContinueBtn}
                                 disabled={isLoading}
+                                ref={triggerRef}
                             >
                                 Перейти до оформлення
                             </Button>
+                            <NotAuthorizedDynamicToast triggerRef={triggerRef}/>
                             <div className="py-5">
                                 <div
                                     className="pt-3 flex items-end justify-between"

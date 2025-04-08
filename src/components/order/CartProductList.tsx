@@ -1,4 +1,4 @@
-﻿import {getCartItems} from "@/utils/cartStorage";
+﻿import {getCartItems} from "@/utils/cart-storage";
 import CartProductListItem from "@/components/order/CartProductListItem";
 
 const CartProductList = () => {
