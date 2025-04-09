@@ -1,11 +1,11 @@
-﻿import Aurora from "@/components/Aurora/Aurora";
+﻿import PreLoaderBackground from "@/components/pre-loading/PreLoaderBackground";
 
 const PreLoader = () => {
 
     return (
 
         <div className="preloader">
-            <Aurora
+            <PreLoaderBackground
                 colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
                 blend={0.5}
                 amplitude={1.0}

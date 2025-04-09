@@ -6,7 +6,7 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {Routes} from "@/data/static/routes";
 import AccountOrderItemProductPriceWithPossibleDiscount
-    from "@/components/AccountOrderItemProductPriceWithPossibleDiscount";
+    from "@/components/account/orders/AccountOrderItemProductPriceWithPossibleDiscount";
 
 interface CartItemPurchaseProps {
     cartItem: CartItem;

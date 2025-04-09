@@ -1,6 +1,6 @@
 ﻿import {BsFacebook, BsInstagram, BsLinkedin, BsTwitterX} from "react-icons/bs";
 
-const HeaderTop = () => {
+const PageHeaderTop = () => {
     return (
         <div className="border-b border-gray-200 hidden sm:block">
             <div className="container py-4">
@@ -47,4 +47,4 @@ const HeaderTop = () => {
     );
 };
 
-export default HeaderTop;
+export default PageHeaderTop;

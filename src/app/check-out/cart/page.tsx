@@ -15,7 +15,7 @@ import PossiblePaymentServicesBanner from "@/components/PossiblePaymentServicesB
 import {ProductGetTotalsResponse} from "@/data/response/product/ProductGetTotalsResponse";
 import {useRouter} from "next/navigation";
 import {Routes} from "@/data/static/routes";
-import NotAuthorizedDynamicToast from "@/components/NotAuthorizedDynamicToast";
+import NotAuthorizedDynamicToast from "@/components/toast/NotAuthorizedDynamicToast";
 import React, {useRef} from "react";
 import {useAuth} from "@/context/AuthContext";
 

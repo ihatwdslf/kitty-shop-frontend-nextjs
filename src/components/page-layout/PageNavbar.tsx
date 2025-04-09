@@ -8,7 +8,7 @@ import {BsFire} from "react-icons/bs";
 import {useCategories} from "@/hooks/use-categories";
 import {Routes} from "@/data/static/routes";
 
-const Navbar = () => {
+const PageNavbar = () => {
 
     const {categories} = useCategories();
 
@@ -74,4 +74,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+export default PageNavbar;

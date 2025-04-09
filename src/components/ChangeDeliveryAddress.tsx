@@ -77,7 +77,7 @@ export default function ChangeDeliveryAddress({deliveryOption}: ChangeDeliveryAd
             <DialogContent>
                 <div className="mb-2 flex flex-col items-center">
                     <Image
-                        src="/kuromi-logo.png"
+                        src="/common/kuromi-logo.png"
                         alt="kuromi-logo"
                         width={40}
                         height={40}

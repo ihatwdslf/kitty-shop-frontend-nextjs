@@ -117,7 +117,7 @@ interface AuroraProps {
   speed?: number;
 }
 
-export default function Aurora(props: AuroraProps) {
+export default function PreLoaderBackground(props: AuroraProps) {
   const {
     colorStops = ["#00d8ff", "#7cff67", "#00d8ff"],
     amplitude = 1.0,

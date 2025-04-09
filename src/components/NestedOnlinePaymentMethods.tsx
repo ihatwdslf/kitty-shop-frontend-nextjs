@@ -1,10 +1,12 @@
 ﻿"use client"
 
 import React, {useEffect, useId, useState} from "react";
-import {PAYMENT_METHOD_STORAGE_KEY, PaymentSectionType} from "@/data/reference/payment-sections";
-import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
-import {PaymentMethods} from "@/data/reference/payment-methods";
+
 import {Label} from "@/components/ui/label";
+import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
+
+import {PaymentMethods} from "@/data/reference/payment-methods";
+import {PAYMENT_METHOD_STORAGE_KEY, PaymentSectionType} from "@/data/reference/payment-sections";
 
 interface NestedOnlinePaymentMethodsProps {
     section: PaymentSectionType | null

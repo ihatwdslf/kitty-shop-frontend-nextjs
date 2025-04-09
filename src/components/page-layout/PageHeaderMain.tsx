@@ -4,12 +4,13 @@ import Link from "next/link";
 import SearchWithLoadingInput from "@/components/SearchWithLoadingInput";
 import CatalogButton from "@/components/CatalogButton";
 import ShoppingCardButton from "@/components/ShoppingCardButton";
-import LoginDialog from "@/components/LoginDialog";
 import {useAuth} from "@/context/AuthContext";
 import UserAvatar from "@/components/UserAvatar";
 import {Routes} from "@/data/static/routes";
+import {WEBSITE_NAME} from "@/data/static/common";
+import AuthDialogs from "@/components/auth/AuthDialogs";
 
-const HeaderMain = () => {
+const PageHeaderMain = () => {
 
     const {authorized, user} = useAuth();
 
@@ -18,7 +19,7 @@ const HeaderMain = () => {
             <div className="container sm:flex justify-between items-center">
                 <div className="font-bold text-4xl text-center pb-4 sm:pb-0 text-stone-950 ">
                     <Link href={Routes.HOME} className="logo__link relative">
-                        KITTYSHOP
+                        {WEBSITE_NAME}
                     </Link>
                 </div>
 
@@ -31,7 +32,7 @@ const HeaderMain = () => {
                 </div>
 
                 <div className="hidden cursor-pointer lg:flex gap-4 text-gray-500 w-1/2 justify-end">
-                    {!authorized ? <LoginDialog/> : (
+                    {!authorized ? <AuthDialogs/> : (
                         <Link
                             href={Routes.ACCOUNT}
                         >
@@ -49,4 +50,4 @@ const HeaderMain = () => {
     )
 }
 
-export default HeaderMain;
+export default PageHeaderMain;

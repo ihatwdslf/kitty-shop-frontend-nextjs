@@ -12,6 +12,7 @@ import {useAuth} from "@/context/AuthContext";
 import {ApiError} from "@/data/response/ApiError";
 import {FcSupport} from "react-icons/fc";
 import {AUTH_TOKEN_COOKIE_NAME} from "@/data/api-client";
+import {EMAIL_REGEX} from "@/components/CompanyPaymentMethodDetails";
 
 const SessionErrorOccurredAlert = () => {
 
@@ -30,8 +31,7 @@ const SessionErrorOccurredAlert = () => {
 
     function extractEmail(message: string) {
         if (!message) return null;
-        const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
-        const match = message.match(emailRegex);
+        const match = !!EMAIL_REGEX && message.match(EMAIL_REGEX);
         return match ? match[0] : null;
     }
 

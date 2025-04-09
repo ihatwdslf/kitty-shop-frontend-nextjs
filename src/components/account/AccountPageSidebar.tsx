@@ -2,7 +2,7 @@
 
 import {useAuth} from "@/context/AuthContext";
 import UserSidebarAvatar from "@/components/account/sidebar/UserSidebarAvatar";
-import EmailAndPhoneSidebar from "@/components/account/sidebar/EmailAndPhoneSidebar";
+import UserShortInformationSidebar from "@/components/account/sidebar/UserShortInformationSidebar";
 import {AccountSidebarButtons} from "@/data/static/account-sidebar-buttons";
 import Link from "next/link";
 import {cn} from "@/utils/class-value";
@@ -27,7 +27,7 @@ const AccountPageSidebar = () => {
             <div className="py-5 items-center justify-center">
                 <div className="border-b-2 flex flex-cols justify-between items-center pb-5">
                     <UserSidebarAvatar user={user?.data}/>
-                    <EmailAndPhoneSidebar user={user?.data}/>
+                    <UserShortInformationSidebar user={user?.data}/>
                 </div>
                 <div className="py-5">
                     {AccountSidebarButtons.map((sidebarBtn) => (

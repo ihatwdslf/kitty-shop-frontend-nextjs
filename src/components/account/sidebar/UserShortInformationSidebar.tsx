@@ -2,11 +2,11 @@
 import React from "react";
 import {BiSolidEdit} from "react-icons/bi";
 
-interface EmailAndPhoneSidebarProps {
+interface UserShortInformationSidebarProps {
     user: User | undefined;
 }
 
-const EmailAndPhoneSidebar: React.FC<EmailAndPhoneSidebarProps> = ({user}) => {
+const UserShortInformationSidebar: React.FC<UserShortInformationSidebarProps> = ({user}) => {
     return (
         <div>
             <div className="flex items-center justify-between text-sm pb-1">
@@ -45,4 +45,4 @@ const InfoItemDetails: React.FC<InfoItemDetailsProps> = ({itemLabel, itemData}) 
     )
 }
 
-export default EmailAndPhoneSidebar;
+export default UserShortInformationSidebar;

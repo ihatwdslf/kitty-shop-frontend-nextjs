@@ -8,11 +8,13 @@ import { useLoading } from "@/context/LoadingContext";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {ApiResponse} from "@/data/response/ApiResponse";
 import {UserLoginResponse} from "@/data/response/user/UserLoginResponse";
+import {UserRegistrationRequestDto} from "@/data/request/auth/UserRegistrationRequestDto";
 
 interface AuthContextType {
     authorized: boolean;
-    user: ApiResponse<User> | null;
+    user: ApiResponse<User> | null | undefined;
     error: string;
+    register: (credentials: UserRegistrationRequestDto) => Promise<boolean>;
     login: (credentials: UserLoginRequestDto) => Promise<boolean>;
     logout: () => Promise<void>;
 }
@@ -54,6 +56,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     });
 
     const authorized = user?.data?.id ? user?.data?.id > 0 : false;
+
+    const registerMutation = useMutation({
+        mutationFn: async (credentials: UserRegistrationRequestDto) => {
+            const response = await apiClient<ApiResponse<UserLoginResponse>>("/auth/registration", {
+                method: "POST",
+                body: JSON.stringify(credentials),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.code !== 201) {
+                throw new Error(response.message || "Registration failed");
+            }
+
+            return true;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["user"] }); // Оновити користувача після входу
+        },
+    });
+
+    const register = async (credentials: UserRegistrationRequestDto): Promise<boolean> => {
+        try {
+            return await registerMutation.mutateAsync(credentials);
+        } catch (err) {
+            console.error("Registration failed", err);
+            return false;
+        }
+    };
 
     // ✅ Логін через useMutation
     const loginMutation = useMutation({
@@ -101,7 +133,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, error: error?.message || "", login, logout, authorized }}>
+        <AuthContext.Provider value={{ user, error: error?.message || "", register, login, logout, authorized }}>
             {children}
         </AuthContext.Provider>
     );

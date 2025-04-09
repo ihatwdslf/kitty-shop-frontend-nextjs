@@ -5,12 +5,12 @@ import {useOrders} from "@/hooks/use-orders";
 import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs"
 import {AvailableToCancelStatusesIDs, OrderStatuses} from "@/data/static/order-statuses";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
-import AccountOrderItem from "@/components/AccountOrderItem";
+import AccountOrderItem from "@/components/account/orders/AccountOrderItem";
 import {useAuth} from "@/context/AuthContext";
 import {getDeliveryOptionItemByKey} from "@/data/static/delivery-options";
 import {formatPrice} from "@/utils/price";
 import {MdDeveloperMode} from "react-icons/md";
-import CancelOrderDialog from "@/components/CancelOrderDialog";
+import CancelOrderDialog from "@/components/order/CancelOrderDialog";
 
 export default function OrderTabs() {
 

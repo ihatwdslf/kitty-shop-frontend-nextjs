@@ -1,4 +1,6 @@
-﻿export interface DeliveryOptionsItemType {
+﻿import {WEBSITE_NAME} from "@/data/static/common";
+
+export interface DeliveryOptionsItemType {
     key: string;
     label: string;
     deliveryAvailable: string;
@@ -30,7 +32,7 @@ export const DeliveryOptions: DeliveryOptionsType = {
             key: "self_delivery_shop",
             label: "Самовивіз з магазину",
             deliveryAvailable: "Сьогодні",
-            iconUrl: "/kuromi-logo.png",
+            iconUrl: "/common/kuromi-logo.png",
             additionalPrice: 0,
             description: "Ми чекатимемо на тебе! Не забудь змінити місце отримання 💖",
             changeAddressPlaceholder: "м.Київ, вул. Грушевського, 5",
@@ -60,9 +62,9 @@ export const DeliveryOptions: DeliveryOptionsType = {
     courierDeliveryTab: [
         {
             key: "courier_delivery_shop",
-            label: "Кур'єр KITTYSHOP",
+            label: `Кур'єр ${WEBSITE_NAME}`,
             deliveryAvailable: "Завтра",
-            iconUrl: "/kuromi-logo.png",
+            iconUrl: "/common/kuromi-logo.png",
             additionalPrice: 119,
             description: "Наші кур'єри доставлять все в момент! Обирай нове місце отримання 💞",
             changeAddressPlaceholder: "м.Київ, вул. Грушевського, 5",

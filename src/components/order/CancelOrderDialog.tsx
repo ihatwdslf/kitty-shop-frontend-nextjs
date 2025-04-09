@@ -11,18 +11,18 @@ import {
 } from "@/components/ui/alert-dialog"
 import {IoClose} from "react-icons/io5";
 import React from "react";
-import Image from "next/image";
 import {useOrders} from "@/hooks/use-orders";
 import {OrderUpdateRequestDto} from "@/data/request/order/OrderUpdateRequestDto";
 import {OrderStatuses, OrderStatusesIDs} from "@/data/static/order-statuses";
+import KuromiLogo from "@/components/common/KuromiLogo";
 
 interface CancelOrderDialogProps {
     orderId: number;
 }
 
-export default function CancelOrderDialog({ orderId }: CancelOrderDialogProps) {
+export default function CancelOrderDialog({orderId}: CancelOrderDialogProps) {
 
-    const { updateOrderMutation } = useOrders();
+    const {updateOrderMutation} = useOrders();
 
     const handleCancelOrderButtonClick = () => {
         const updateRequestDto = {
@@ -61,12 +61,7 @@ export default function CancelOrderDialog({ orderId }: CancelOrderDialogProps) {
                         className="flex pr-2 shrink-0 items-center justify-center"
                         aria-hidden="true"
                     >
-                        <Image
-                            src="/kuromi-logo.png"
-                            alt="kuromi-logo"
-                            width={40}
-                            height={40}
-                        />
+                        <KuromiLogo size={40}/>
                     </div>
                     <AlertDialogHeader>
                         <AlertDialogTitle

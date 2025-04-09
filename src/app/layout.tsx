@@ -7,16 +7,15 @@ import localFont from "next/font/local";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import MobileNavbar from "@/components/MobileNavbar";
-import Footer from "@/components/Footer";
-import HeaderTop from "@/components/HeaderTop";
+import PageFooter from "@/components/page-layout/PageFooter";
+import PageHeaderTop from "@/components/page-layout/PageHeaderTop";
 import {AuthProvider} from "@/context/AuthContext";
-import PreLoader from "@/components/PreLoader";
+import PreLoader from "@/components/pre-loading/PreLoader";
 import {LoadingProvider, useLoading} from "@/context/LoadingContext";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import Navbar from "@/components/Navbar";
-import HeaderMain from "@/components/HeaderMain";
-import SessionErrorOccurredAlert from "@/components/SessionErrorOccurredAlert";
+import PageNavbar from "@/components/page-layout/PageNavbar";
+import PageHeaderMain from "@/components/page-layout/PageHeaderMain";
+import SessionErrorOccurredAlert from "@/components/alerts/SessionErrorOccurredAlert";
 import {ToastProvider} from "@/components/ui/toast";
 
 const eUkraineFont = localFont({
@@ -84,14 +83,11 @@ const MainLayout = ({children}: { children: React.ReactNode }) => {
     return (
         <main className="min-h-screen flex flex-col">
             <SessionErrorOccurredAlert/>
-            <HeaderTop/>
-            <HeaderMain/>
-            <Navbar/>
-            <MobileNavbar/>
+            <PageHeaderTop/>
+            <PageHeaderMain/>
+            <PageNavbar/>
             <main className="flex-grow">{children}</main>
-            <Footer/>
+            <PageFooter/>
         </main>
     );
-
-    // return (<PreLoader/>)
 };
