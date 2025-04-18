@@ -7,6 +7,14 @@
     ACCOUNT_ORDERS: '/account/orders',
     ACCOUNT_SIDEBAR: (slug: string) => `/account${slug}`,
 
+    // Admin
+    ADMIN: '/admin',
+    ADMIN_BRANDS: '/admin/brands',
+    ADMIN_CATEGORIES: '/admin/categories',
+    ADMIN_PRODUCTS: '/admin/products',
+    ADMIN_ORDERS: '/admin/orders',
+    ADMIN_SIDEBAR: (slug: string) => `/admin${slug}`,
+
     // Checkout flow
     CHECK_OUT: "/check-out",
     CHECKOUT_CART: '/check-out/cart',
@@ -26,6 +34,12 @@
 };
 
 export const ProtectedRoutes = [
+    Routes.ADMIN,
+    Routes.ADMIN_BRANDS,
+    Routes.ADMIN_CATEGORIES,
+    Routes.ADMIN_PRODUCTS,
+    Routes.ADMIN_ORDERS,
+
     Routes.ACCOUNT,
     Routes.ACCOUNT_SETTINGS,
     Routes.ACCOUNT_ORDERS,
@@ -36,6 +50,7 @@ export const ProtectedRoutes = [
 ];
 
 export const Redirects: Record<string, string> = {
+    [Routes.ADMIN]: Routes.ADMIN_BRANDS,
     [Routes.ACCOUNT]: Routes.ACCOUNT_ORDERS,
     [Routes.CHECK_OUT]: Routes.CHECKOUT_CART,
     [Routes.CHECKOUT_PURCHASE]: Routes.CHECKOUT_PURCHASE_DELIVERY,

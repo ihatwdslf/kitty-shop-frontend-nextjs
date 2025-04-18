@@ -1,4 +1,4 @@
-﻿import {User} from "@/data/response/user/User";
+﻿import {User, UserRoleDefaults} from "@/data/response/user/User";
 import React from "react";
 import {BiSolidEdit} from "react-icons/bi";
 
@@ -7,6 +7,18 @@ interface UserShortInformationSidebarProps {
 }
 
 const UserShortInformationSidebar: React.FC<UserShortInformationSidebarProps> = ({user}) => {
+
+    const getAcpRole = (role: string | undefined) => {
+        switch (role) {
+            case UserRoleDefaults.ADMIN:
+                return "Адміністратор";
+            case UserRoleDefaults.MANAGER:
+                return "Менеджер";
+            default:
+                return "Користувач";
+        }
+    }
+
     return (
         <div>
             <div className="flex items-center justify-between text-sm pb-1">
@@ -21,6 +33,7 @@ const UserShortInformationSidebar: React.FC<UserShortInformationSidebarProps> = 
             </div>
             <InfoItemDetails itemData={user?.phone} itemLabel={`Номер мобільного`}/>
             <InfoItemDetails itemData={user?.email} itemLabel={`E-mail`}/>
+            <InfoItemDetails itemData={getAcpRole(user?.role?.role)} itemLabel={`Роль`}/>
         </div>
     )
 }

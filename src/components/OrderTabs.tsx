@@ -94,18 +94,26 @@ export default function OrderTabs() {
 
                                     return (
                                         <AccordionItem value={"order_accordion_item_" + order.id} key={order.id}
-                                                       className="bg-background has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative border px-4 py-1 outline-none first:rounded-t-md last:rounded-b-md last:border-b has-focus-visible:z-10 has-focus-visible:ring-[3px]">
+                                                       className="bg-background has-focus-visible:border-ring
+                                                            has-focus-visible:ring-ring/50 relative border px-4 py-1
+                                                            outline-none first:rounded-t-md last:rounded-b-md
+                                                            last:border-b has-focus-visible:z-10
+                                                            has-focus-visible:ring-[3px]"
+                                        >
                                             <AccordionTrigger
-                                                className="cursor-pointer p-4 text-[13px] leading-6 hover:no-underline focus-visible:ring-0"
+                                                className="cursor-pointer p-4 text-[13px] leading-6 hover:no-underline
+                                                    focus-visible:ring-0"
                                             >
                                                 <div
-                                                    className="flex flex-col sm:flex-row sm:items-center justify-start gap-x-15">
+                                                    className="flex flex-col sm:flex-row sm:items-center justify-start
+                                                        gap-x-15"
+                                                >
                                                     <span className="font-normal">№ {order.id}</span>
                                                     <span
                                                         className="text-muted-foreground font-thin"
                                                     >
-                                                    {new Date(order.orderDate).toLocaleDateString()}
-                                                </span>
+                                                        {new Date(order.orderDate).toLocaleDateString()}
+                                                    </span>
                                                     <span className="text-xs font-normal">{order.status.name}</span>
                                                 </div>
                                             </AccordionTrigger>

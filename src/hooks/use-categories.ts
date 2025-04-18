@@ -3,6 +3,9 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/data/api-client";
 import { ApiResponse } from "@/data/response/ApiResponse";
 import { Category } from "@/data/response/category/Category";
+import {CreateCategoryRequest} from "@/data/request/category/CreateCategoryRequest";
+import {UpdateCategoryRequest} from "@/data/request/category/UpdateCategoryRequest";
+import {UpdateBrandRequest} from "@/data/request/brand/UpdateBrandRequest";
 
 // Fetch all categories
 const fetchCategories = async (): Promise<ApiResponse<CategoryList>> => {
@@ -23,7 +26,7 @@ const fetchNestedCategories = async (id: string): Promise<ApiResponse<CategoryLi
 };
 
 // Create a category
-const createCategory = async (categoryData: Category): Promise<ApiResponse<Category>> => {
+const createCategory = async (categoryData: CreateCategoryRequest): Promise<ApiResponse<Category>> => {
     const response = await apiClient<ApiResponse<Category>>("/categories", {
         method: "POST",
         body: JSON.stringify(categoryData),
@@ -35,10 +38,10 @@ const createCategory = async (categoryData: Category): Promise<ApiResponse<Categ
 };
 
 // Update a category by ID
-const updateCategory = async (id: string, categoryData: Category): Promise<ApiResponse<Category>> => {
+const updateCategory = async (id: number, updateRequest: UpdateCategoryRequest): Promise<ApiResponse<Category>> => {
     const response = await apiClient<ApiResponse<Category>>(`/categories/${id}`, {
         method: "PATCH",
-        body: JSON.stringify(categoryData),
+        body: JSON.stringify(updateRequest),
         headers: {
             "Content-Type": "application/json",
         },
@@ -47,7 +50,7 @@ const updateCategory = async (id: string, categoryData: Category): Promise<ApiRe
 };
 
 // Delete a category by ID
-const deleteCategory = async (id: string): Promise<ApiResponse<null>> => {
+const deleteCategory = async (id: number): Promise<ApiResponse<null>> => {
     const response = await apiClient<ApiResponse<null>>(`/categories/${id}`, {
         method: "DELETE",
     });
@@ -88,7 +91,10 @@ export const useCategories = () => {
 
     // Update a category by ID
     const updateCategoryMutation = useMutation({
-        mutationFn: updateCategory,
+        mutationFn: ({id, updateRequest}: {
+            id: number;
+            updateRequest: UpdateBrandRequest
+        }) => updateCategory(id, updateRequest),
         onSuccess: () => {
             // Invalidate categories cache after updating a category
             queryClient.invalidateQueries(["categories"]);
@@ -97,7 +103,7 @@ export const useCategories = () => {
 
     // Delete a category by ID
     const deleteCategoryMutation = useMutation({
-        mutationFn: deleteCategory,
+        mutationFn: (categoryId: number) => deleteCategory(categoryId),
         onSuccess: () => {
             // Invalidate categories cache after deleting a category
             queryClient.invalidateQueries(["categories"]);

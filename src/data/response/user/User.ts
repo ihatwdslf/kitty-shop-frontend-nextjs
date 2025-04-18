@@ -9,8 +9,13 @@ export interface User {
     address: string;
 }
 
-export enum UserRole {
-    ADMIN = "ADMIN",
+export interface UserRole {
+    id: number;
+    role: string;
+}
+
+export enum UserRoleDefaults {
     USER = "USER",
-    GUEST = "GUEST"
+    MANAGER = "MANAGER",
+    ADMIN = "ADMIN",
 }
